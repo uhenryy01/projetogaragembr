@@ -1,6 +1,7 @@
 <?php
 $editar = $editar ?? null;
 $produtos = $produtos ?? [];
+$podeConfirmar = !in_array($_SERVER['SERVER_NAME'] ?? '', ['localhost', '127.0.0.1']);
 
 function imagemProdutoUrl(int $produtoId): string
 {
@@ -32,6 +33,7 @@ function imagemProdutoUrl(int $produtoId): string
         <div class="user">
             Olá, <strong><?= htmlspecialchars($_SESSION['nome'] ?? 'Usuário') ?></strong>
             <a class="btn btn-ghost" href="lojaview.php" style="margin-left:8px">Ir para Loja</a>
+            <a class="btn btn-ghost" href="index.php?controller=auth&action=dashboard">Dashboard</a>
             <a class="btn btn-ghost" href="index.php?controller=auth&action=logout">Sair</a>
         </div>
     </div>
@@ -120,14 +122,14 @@ off">Inativo</span>' ?>
 <?php if ((int)$p['ativo'] === 1): ?>
 <a class="btn btn-danger"
 href="index.php?controller=produto&action=toggle&id=<?= (int)$p['id'] ?>&ativo=0"
-onclick="return confirm('Inativar este produto?')">Inativar</a>
+<?= $podeConfirmar ? "onclick=\"return confirm('Inativar este produto?')\"" : '' ?>>Inativar</a>
 <?php else: ?>
 <a class="btn btn-success"
 href="index.php?controller=produto&action=toggle&id=<?= (int)$p['id'] ?>&ativo=1">Ativar</a>
 <?php endif; ?>
 <a class="btn btn-danger"
 href="index.php?controller=produto&action=deletar&id=<?= (int)$p['id'] ?>"
-onclick="return confirm('DELETAR permanentemente? Não há volta!')">Excluir</a>
+<?= $podeConfirmar ? "onclick=\"return confirm('DELETAR permanentemente? Não há volta!')\"" : '' ?>>Excluir</a>
 </td>
 </tr>
 <?php endforeach; ?>

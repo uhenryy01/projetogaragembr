@@ -1,5 +1,6 @@
 <?php
 $nomeUser = $_SESSION['nome'] ?? 'Usuário';
+$podeConfirmar = !in_array($_SERVER['SERVER_NAME'] ?? '', ['localhost', '127.0.0.1']);
 ?>
 <!doctype html>
 <html lang="pt-br">
@@ -66,7 +67,7 @@ value="<?= $editar ? htmlspecialchars($editar['nome']) : '' ?>">
 <?php if ((int)$c['ativo'] === 1): ?>
 <a class="btn btn-danger"
 href="index.php?controller=categoria&action=toggle&id=<?= (int)$c['id'] ?>&ativo=0"
-onclick="return confirm('Inativar esta categoria?')">Inativar</a>
+<?= $podeConfirmar ? "onclick=\"return confirm('Inativar esta categoria?')\"" : '' ?>>Inativar</a>
 <?php else: ?>
 <a class="btn btn-success"
 href="index.php?controller=categoria&action=toggle&id=<?= (int)$c['id']

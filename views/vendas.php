@@ -2,6 +2,7 @@
 $nome = $_SESSION['nome'] ?? 'Usuário';
 $vendas = $vendas ?? [];
 $carros = $carros ?? [];
+$podeConfirmar = !in_array($_SERVER['SERVER_NAME'] ?? '', ['localhost', '127.0.0.1']);
 ?>
 <!doctype html>
 <html lang="pt-br">
@@ -89,7 +90,7 @@ $carros = $carros ?? [];
                             <td><?= date('d/m/Y H:i', strtotime($v['data_venda'])) ?></td>
                             <td><?= htmlspecialchars($v['usuario_nome'] ?? '') ?></td>
                             <td>
-                                <a class="btn btn-sm btn-danger" href="index.php?controller=venda&action=deletar&id=<?= $v['id'] ?>" onclick="return confirm('Excluir venda?')">Excluir</a>
+                                <a class="btn btn-sm btn-danger" href="index.php?controller=venda&action=deletar&id=<?= $v['id'] ?>" <?= $podeConfirmar ? "onclick=\"return confirm('Excluir venda?')\"" : '' ?>>Excluir</a>
                             </td>
                         </tr>
                         <?php endforeach; ?>
