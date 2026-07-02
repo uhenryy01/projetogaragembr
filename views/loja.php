@@ -276,6 +276,17 @@ try {
             <a href="lojaview.php" class="logo-link">
                 <img src="img/logo.png" alt="Garagem Brasil">
             </a>
+            <form class="search-form" action="lojaview.php" method="GET" style="flex:1; max-width:400px; margin:0 16px; display:flex; gap:6px;">
+                <input
+                    type="text"
+                    name="search"
+                    class="input search-input"
+                    placeholder="Buscar por nome, marca ou modelo..."
+                    value="<?= htmlspecialchars($_GET['search'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
+                    style="flex:1; padding:10px 16px; border-radius:24px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); color:#fff; font-size:0.9rem;"
+                >
+                <button type="submit" style="background:#c20f0f; border:none; border-radius:24px; padding:10px 18px; color:#fff; font-size:1rem; cursor:pointer; font-weight:700;">Buscar</button>
+            </form>
             <div class="header-actions">
                 <?php if ($perfil === 'admin'): ?>
                     <a class="btn btn-ghost" href="index.php?controller=auth&action=dashboard" style="color:#ccc;text-decoration:none;">Admin</a>
